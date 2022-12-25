@@ -2,7 +2,7 @@ import os, time, math
 from abc import ABC, abstractmethod
 from multipledispatch import dispatch
 
-# Version 17/12/22 20:34
+# Version 25/12/22
 
 class Tela:
     def __init__(self, x=211, y=116):
