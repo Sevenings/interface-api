@@ -4,8 +4,8 @@ import interfaceapi as iapi
 tela = iapi.Tela(211, 2*57)
 pontoA = iapi.Point(tela.getWidth()/2, tela.getHeight()/2)
 pontoB = iapi.Point(tela.getWidth()/2, tela.getHeight()/2)
-line = iapi.Line(pontoA, pontoB)
-hline = iapi.Line(iapi.Point(50, 40), iapi.Point(70, 40))
+line = iapi.LineSegment(pontoA, pontoB)
+hline = iapi.LineSegment(iapi.Point(50, 40), iapi.Point(70, 40))
 
 for i in range(36):
     tela.clear()
@@ -14,7 +14,7 @@ for i in range(36):
     line.points[0].y -= 1
     line.points[1].y += 1
 
-    hline.translateBy(0, 1)
+    hline.translateBy(0.0, 1.0)
 
     tela.drawObject(line)
     tela.drawObject(hline)

@@ -20,6 +20,7 @@ class Tela:
     def addObject(self, *objects):
         for object in objects:
             self.scene.append(object)
+            object.annex(self)
 
     def getHeight(self):
         return self.height*2
@@ -109,9 +110,17 @@ class Tela:
 class Object2D(ABC):
     def __init__(self):
         self.points = []
+        self.tela = None
+
+    def annex(self, tela: Tela):
+        self.tela = tela
 
     @abstractmethod
     def draw(self, tela):
+        pass
+
+    @abstractmethod
+    def center(self):
         pass
 
     def rotateAroundPoint(self, point, degree):
@@ -128,6 +137,13 @@ class Object2D(ABC):
         for point in self.points:
             point.translateBy(dx, dy)
 
+    def resize(self, k):
+        center = self.center()
+        for point in self.points:
+            OP = point - center
+            OP *= k
+            point.translateToPoint(center + OP)
+
 
 class Point:
     def __init__(self, x=0, y=0):
@@ -139,6 +155,12 @@ class Point:
 
     def __sub__(self, point):
         return Point(self.x - point.x, self.y - point.y)
+
+    def __mul__(self, n: float):
+        return Point(self.x * n, self.y * n)
+
+    def __rmul__(self, n: float):
+        return self * n
 
     def draw(self, tela):
         tela.drawPoint('o', self.x, self.y)
